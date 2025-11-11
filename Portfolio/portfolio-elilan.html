@@ -199,12 +199,144 @@
             transition: all 0.3s ease;
             width: 100%;
             max-width: 280px;
+            cursor: pointer;
         }
 
         .skill-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
             box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--dark);
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: var(--secondary);
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .close-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .tool-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--darker);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .tool-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .tool-section p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .tool-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tool-section li {
+            color: var(--light);
+            padding: 0.5rem 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .tool-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .skill-card h3 {
@@ -590,13 +722,36 @@
             document.getElementById('profilePhoto').style.display = 'none';
             document.getElementById('profileInitials').style.display = 'flex';
         }
+
+        function openModal(modalType) {
+            const modal = document.getElementById(modalType + 'Modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalType) {
+            const modal = document.getElementById(modalType + 'Modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fermer avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
     </script>
 
     <section id="competences">
         <div class="container">
             <h2 class="section-title">Compétences Techniques</h2>
             <div class="skills-grid">
-                <div class="skill-card">
+                <div class="skill-card" onclick="openModal('cloud')">
                     <h3>☁️ Cloud Computing</h3>
                     <ul>
                         <li>Microsoft Azure (IAAS/PAAS, AKS)</li>
@@ -606,7 +761,7 @@
                         <li>Cloud Hybride</li>
                     </ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card" onclick="openModal('system')">
                     <h3>🖥️ Administration Système</h3>
                     <ul>
                         <li>Windows Server (2016-2022)</li>
@@ -616,7 +771,7 @@
                         <li>Linux Administration</li>
                     </ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card" onclick="openModal('devops')">
                     <h3>🔧 DevOps & Automatisation</h3>
                     <ul>
                         <li>Docker & Kubernetes</li>
@@ -626,7 +781,7 @@
                         <li>Bash & Python</li>
                     </ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card" onclick="openModal('data')">
                     <h3>📊 Data & Monitoring</h3>
                     <ul>
                         <li>SQL Server Administration</li>
@@ -639,6 +794,230 @@
             </div>
         </div>
     </section>
+
+    <!-- Modals -->
+    <div id="cloudModal" class="modal" onclick="closeModal('cloud')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>☁️ Cloud Computing</h2>
+                <button class="close-btn" onclick="closeModal('cloud')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="tool-section">
+                    <h3>Microsoft Azure</h3>
+                    <p>Plateforme cloud de Microsoft offrant des services IaaS et PaaS pour héberger, déployer et gérer des applications.</p>
+                    <ul>
+                        <li><strong>IaaS/PaaS</strong> : Machines virtuelles, App Services pour déployer des applications web sans gérer l'infrastructure</li>
+                        <li><strong>AKS (Azure Kubernetes Service)</strong> : Service managé pour orchestrer des conteneurs Docker avec Kubernetes</li>
+                        <li><strong>Azure DevOps</strong> : Suite d'outils pour CI/CD, gestion de code et déploiement automatisé</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Amazon Web Services (AWS)</h3>
+                    <p>Leader du cloud computing avec une vaste gamme de services pour le calcul, le stockage et les bases de données.</p>
+                    <ul>
+                        <li><strong>EC2</strong> : Serveurs virtuels évolutifs dans le cloud</li>
+                        <li><strong>S3</strong> : Stockage d'objets hautement disponible et durable</li>
+                        <li><strong>IAM</strong> : Gestion des identités et des accès pour sécuriser les ressources</li>
+                        <li><strong>RDS</strong> : Bases de données relationnelles managées (MySQL, PostgreSQL, etc.)</li>
+                        <li><strong>EBS</strong> : Volumes de stockage bloc pour EC2</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Virtualisation</h3>
+                    <p>Technologies pour créer des environnements virtualisés et optimiser l'utilisation des ressources.</p>
+                    <ul>
+                        <li><strong>VMware</strong> : Plateforme de virtualisation leader pour créer et gérer des VMs</li>
+                        <li><strong>Hyper-V</strong> : Solution de virtualisation Microsoft intégrée à Windows Server</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Cloud Hybride</h3>
+                    <p>Architecture combinant infrastructures on-premise et cloud pour plus de flexibilité et d'optimisation des coûts.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="systemModal" class="modal" onclick="closeModal('system')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>🖥️ Administration Système</h2>
+                <button class="close-btn" onclick="closeModal('system')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="tool-section">
+                    <h3>Windows Server</h3>
+                    <p>Système d'exploitation serveur de Microsoft pour gérer les réseaux d'entreprise, versions 2016 à 2022.</p>
+                    <ul>
+                        <li>Gestion des rôles et fonctionnalités serveur</li>
+                        <li>Configuration et maintenance des services réseau</li>
+                        <li>Gestion des utilisateurs et groupes</li>
+                        <li>Sécurité et mises à jour système</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Active Directory & GPO</h3>
+                    <p>Service d'annuaire Microsoft pour centraliser la gestion des utilisateurs, ordinateurs et ressources réseau.</p>
+                    <ul>
+                        <li><strong>Active Directory</strong> : Authentification centralisée, gestion des comptes et ressources</li>
+                        <li><strong>GPO (Group Policy Objects)</strong> : Politiques de groupe pour configurer et sécuriser les postes de travail</li>
+                        <li>Gestion des unités organisationnelles (OU)</li>
+                        <li>Contrôle d'accès basé sur les rôles (RBAC)</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Services Réseau</h3>
+                    <ul>
+                        <li><strong>DNS</strong> : Résolution de noms de domaine en adresses IP</li>
+                        <li><strong>DHCP</strong> : Attribution automatique d'adresses IP</li>
+                        <li><strong>DFS (Distributed File System)</strong> : Système de fichiers distribués pour centraliser le stockage</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>PowerShell Scripting</h3>
+                    <p>Langage de script et shell de commandes pour automatiser les tâches d'administration Windows.</p>
+                    <ul>
+                        <li>Automatisation des tâches répétitives</li>
+                        <li>Gestion à distance des serveurs</li>
+                        <li>Scripts de déploiement et configuration</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Linux Administration</h3>
+                    <p>Administration de systèmes Linux (Ubuntu, Debian, CentOS) pour serveurs et infrastructures.</p>
+                    <ul>
+                        <li>Gestion des packages et services</li>
+                        <li>Configuration réseau et sécurité</li>
+                        <li>Scripting Bash pour automatisation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="devopsModal" class="modal" onclick="closeModal('devops')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>🔧 DevOps & Automatisation</h2>
+                <button class="close-btn" onclick="closeModal('devops')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="tool-section">
+                    <h3>Docker & Kubernetes</h3>
+                    <p>Technologies de conteneurisation et orchestration pour déployer des applications de manière portable et scalable.</p>
+                    <ul>
+                        <li><strong>Docker</strong> : Conteneurisation d'applications avec images et conteneurs isolés</li>
+                        <li><strong>Kubernetes</strong> : Orchestration de conteneurs pour haute disponibilité et scalabilité</li>
+                        <li>Déploiement multi-conteneurs avec Docker Compose</li>
+                        <li>Gestion des pods, services et déploiements Kubernetes</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>CI/CD (Intégration et Déploiement Continus)</h3>
+                    <p>Pratiques DevOps pour automatiser le build, les tests et le déploiement des applications.</p>
+                    <ul>
+                        <li><strong>Jenkins</strong> : Serveur d'automatisation open-source pour pipelines CI/CD</li>
+                        <li><strong>GitLab CI/CD</strong> : Pipelines intégrés à GitLab pour automatiser les déploiements</li>
+                        <li>Tests automatisés et déploiements sans interruption</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Infrastructure as Code (IaC)</h3>
+                    <ul>
+                        <li><strong>Ansible</strong> : Automatisation de la configuration et du déploiement avec des playbooks YAML</li>
+                        <li><strong>Terraform</strong> : Provisioning d'infrastructure cloud de manière déclarative</li>
+                        <li>Gestion de configuration automatisée</li>
+                        <li>Déploiements reproductibles et versionnés</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Gestion de Code</h3>
+                    <ul>
+                        <li><strong>Git</strong> : Système de contrôle de version distribué</li>
+                        <li><strong>GitHub/GitLab</strong> : Plateformes de collaboration et hébergement de code</li>
+                        <li>Workflows Git (branches, merge, pull requests)</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Scripting & Automatisation</h3>
+                    <ul>
+                        <li><strong>Bash</strong> : Scripts shell pour automatisation Linux/Unix</li>
+                        <li><strong>Python</strong> : Langage de programmation pour scripts d'automatisation complexes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dataModal" class="modal" onclick="closeModal('data')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>📊 Data & Monitoring</h2>
+                <button class="close-btn" onclick="closeModal('data')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="tool-section">
+                    <h3>SQL Server</h3>
+                    <p>Système de gestion de base de données relationnelle (SGBDR) de Microsoft pour applications d'entreprise.</p>
+                    <ul>
+                        <li>Administration et configuration de bases de données</li>
+                        <li>Gestion des sauvegardes et restaurations</li>
+                        <li>Optimisation des performances et requêtes</li>
+                        <li>Sécurité et gestion des accès</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>MySQL/MariaDB</h3>
+                    <p>Bases de données relationnelles open-source largement utilisées pour applications web.</p>
+                    <ul>
+                        <li>Installation et configuration de serveurs MySQL/MariaDB</li>
+                        <li>Requêtes SQL et optimisation</li>
+                        <li>Réplication et haute disponibilité</li>
+                        <li>MariaDB : Fork communautaire de MySQL avec améliorations</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>MongoDB (Notions)</h3>
+                    <p>Base de données NoSQL orientée documents, flexible et scalable pour données non structurées.</p>
+                    <ul>
+                        <li>Stockage de documents JSON/BSON</li>
+                        <li>Requêtes sur documents et collections</li>
+                        <li>Scalabilité horizontale</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Grafana</h3>
+                    <p>Plateforme de visualisation et d'analyse pour créer des tableaux de bord de monitoring.</p>
+                    <ul>
+                        <li>Création de dashboards interactifs</li>
+                        <li>Visualisation de métriques en temps réel</li>
+                        <li>Alertes configurables</li>
+                        <li>Intégration avec multiples sources de données</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Prometheus</h3>
+                    <p>Système de monitoring et d'alerting open-source avec modèle de données time-series.</p>
+                    <ul>
+                        <li>Collecte de métriques via scraping HTTP</li>
+                        <li>Langage de requête PromQL</li>
+                        <li>Monitoring d'infrastructures et applications</li>
+                        <li>Parfaite intégration avec Grafana</li>
+                    </ul>
+                </div>
+                <div class="tool-section">
+                    <h3>Elasticsearch</h3>
+                    <p>Moteur de recherche et d'analyse distribué pour logs et recherche full-text.</p>
+                    <ul>
+                        <li>Indexation et recherche de logs</li>
+                        <li>Analyse de données en temps réel</li>
+                        <li>Partie de la stack ELK (Elasticsearch, Logstash, Kibana)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="parcours">
         <div class="container">
