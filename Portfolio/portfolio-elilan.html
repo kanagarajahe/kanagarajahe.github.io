@@ -185,10 +185,10 @@
         }
 
         .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 2rem;
-            justify-items: center;
+            justify-content: center;
         }
 
         .skill-card {
@@ -198,7 +198,7 @@
             border: 1px solid rgba(0, 102, 255, 0.2);
             transition: all 0.3s ease;
             width: 100%;
-            max-width: 350px;
+            max-width: 280px;
         }
 
         .skill-card:hover {
