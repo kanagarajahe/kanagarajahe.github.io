@@ -188,6 +188,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            justify-items: center;
         }
 
         .skill-card {
@@ -196,6 +197,8 @@
             border-radius: 15px;
             border: 1px solid rgba(0, 102, 255, 0.2);
             transition: all 0.3s ease;
+            width: 100%;
+            max-width: 350px;
         }
 
         .skill-card:hover {
@@ -248,6 +251,7 @@
             width: 2px;
             height: 100%;
             background: linear-gradient(180deg, var(--primary), var(--secondary));
+            z-index: 0;
         }
 
         .timeline-item {
@@ -268,23 +272,87 @@
             margin-left: auto;
         }
 
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+        }
+
+        /* Lignes de connexion - Flèches vers le trait vertical */
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            left: -40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            right: -40px;
+        }
+
+        /* Point de connexion sur le trait vertical */
         .timeline-content::before {
             content: '';
             position: absolute;
-            top: 20px;
-            width: 20px;
-            height: 20px;
+            top: 50%;
+            width: 12px;
+            height: 12px;
             background: var(--primary);
             border-radius: 50%;
-            border: 3px solid var(--darker);
+            border: 2px solid var(--darker);
+            z-index: 2;
+            transform: translateY(-50%);
         }
 
         .timeline-item:nth-child(odd) .timeline-content::before {
-            left: -50px;
+            left: -46px;
         }
 
         .timeline-item:nth-child(even) .timeline-content::before {
-            right: -50px;
+            right: -46px;
+        }
+
+        .timeline-item:nth-child(3) {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(3) .timeline-content {
+            width: calc(50% - 20px);
+            margin: 0;
+        }
+
+        .timeline-item:nth-child(3) .timeline-content:first-child::after {
+            right: -40px;
+            left: auto;
+        }
+
+        .timeline-item:nth-child(3) .timeline-content:first-child::before {
+            right: -46px;
+            left: auto;
+        }
+
+        .timeline-item:nth-child(3) .timeline-content:last-child::after {
+            left: -40px;
+            right: auto;
+        }
+
+        .timeline-item:nth-child(3) .timeline-content:last-child::before {
+            left: -46px;
+            right: auto;
+        }
+
+        .timeline-item:nth-child(4) .timeline-content {
+            margin-right: auto;
         }
 
         .timeline-content h3 {
@@ -455,11 +523,43 @@
             .timeline-content {
                 width: calc(100% - 60px);
                 margin-left: 60px !important;
+                margin-right: 0 !important;
+            }
+
+            .timeline-content::after {
+                width: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -20px;
+                right: auto;
             }
 
             .timeline-item:nth-child(odd) .timeline-content::before,
             .timeline-item:nth-child(even) .timeline-content::before {
-                left: -50px;
+                left: -26px;
+                right: auto;
+            }
+
+            .timeline-item:nth-child(3) {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .timeline-item:nth-child(3) .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+
+            .timeline-item:nth-child(3) .timeline-content::after {
+                left: -20px !important;
+                right: auto !important;
+            }
+
+            .timeline-item:nth-child(3) .timeline-content::before {
+                left: -26px !important;
+                right: auto !important;
             }
         }
     </style>
@@ -469,7 +569,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="profile-section">
-                    <img src="img/photoprofil.png" alt="Elilan Kanagarajah" class="profile-photo" id="profilePhoto" onerror="showInitials()">
+                    <img src="/img/photoprofil.png" alt="Elilan Kanagarajah" class="profile-photo" id="profilePhoto" onerror="showInitials()">
                     <div class="profile-initials" id="profileInitials" style="display: none;">EK</div>
                 </div>
                 <div class="hero-text">
@@ -564,8 +664,6 @@
                         <span class="date">2021 - 2023 | Lycée Diderot Paris</span>
                         <p>Technologie informatique et systèmes informatiques avec spécialisation en réseaux et infrastructure.</p>
                     </div>
-                </div>
-                <div class="timeline-item">
                     <div class="timeline-content">
                         <h3>Stage - Loxam</h3>
                         <span class="date">2022 | Puteaux</span>
