@@ -1483,45 +1483,178 @@ if __name__=="__main__":
     <div id="cloud-infraModal" class="modal" onclick="closeModal('cloud-infra')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h2>☁️ Infrastructure Cloud Automatisée</h2>
+                <h2>☁️ Infrastructure Cloud Automatisée sur Azure</h2>
                 <button class="close-btn" onclick="closeModal('cloud-infra')">×</button>
             </div>
             <div class="modal-body">
-                <div class="tool-section">
-                    <h3>Description du Projet</h3>
-                    <p>Conception et déploiement complet d'une infrastructure cloud automatisée sur Microsoft Azure pour héberger une application web PHP avec base de données MariaDB.</p>
+                <div class="project-description">
+                    <p><strong>Projet de fin de Bachelor :</strong> Conception et déploiement d'une infrastructure cloud automatisée, sécurisée et performante sur Microsoft Azure, validant les compétences du titre professionnel d'Administrateur Système DevOps. Le projet intègre une approche DevOps complète avec automatisation, containerisation, supervision et sécurité.</p>
                 </div>
 
                 <div class="tool-section">
-                    <h3>Architecture</h3>
+                    <h3>Contexte et Objectifs</h3>
+                    <p>Projet de fin de formation visant à valider les compétences DevOps à travers la création d'une infrastructure cloud complète. L'objectif était de déployer une application web fonctionnelle avec base de données, le tout automatisé, supervisé et sécurisé.</p>
                     <ul>
-                        <li><strong>Containerisation Docker</strong> : Application PHP et MariaDB dans des conteneurs séparés</li>
-                        <li><strong>Azure Cloud Services</strong> : Déploiement sur infrastructure IaaS Azure</li>
-                        <li><strong>Orchestration</strong> : Docker Compose pour la gestion multi-conteneurs</li>
-                        <li><strong>Sécurité</strong> : Groupes de sécurité Azure, certificats SSL/TLS</li>
-                        <li><strong>Supervision</strong> : Prometheus pour le monitoring des services</li>
+                        <li>Déploiement d'une VM Ubuntu sur Azure</li>
+                        <li>Containerisation de tous les services avec Docker</li>
+                        <li>Application web PHP avec fonctionnalités CRUD</li>
+                        <li>Base de données MariaDB relationnelle</li>
+                        <li>Supervision avec Prometheus et Grafana</li>
+                        <li>Automatisation complète avec Terraform et Ansible</li>
                     </ul>
                 </div>
 
                 <div class="tool-section">
-                    <h3>Automatisation</h3>
+                    <h3>Architecture du Projet</h3>
+                    <p>Architecture basée sur des containers Docker isolés, garantissant modularité, scalabilité et sécurité :</p>
                     <ul>
-                        <li><strong>Ansible</strong> : Playbooks pour le provisioning et la configuration automatique</li>
-                        <li><strong>Scripts Bash</strong> : Automatisation des déploiements et mises à jour</li>
-                        <li><strong>Infrastructure as Code</strong> : Configuration versionnée et reproductible</li>
-                        <li><strong>CI/CD</strong> : Pipeline de déploiement automatisé</li>
+                        <li><strong>Container NGINX</strong> : Serveur web pour le frontend</li>
+                        <li><strong>Container MariaDB</strong> : Base de données relationnelle pour le backend</li>
+                        <li><strong>Container Git</strong> : Gestion du versionnage du code</li>
+                        <li><strong>Container Prometheus</strong> : Supervision et monitoring des services</li>
+                        <li><strong>Volumes Docker</strong> : Persistance des données</li>
+                    </ul>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Technologies et Outils Utilisés</h3>
+                    <ul>
+                        <li><strong>Cloud Platform</strong> : Microsoft Azure (VM, Groupes de sécurité, Réseau virtuel)</li>
+                        <li><strong>Système d'exploitation</strong> : Ubuntu Server (Linux)</li>
+                        <li><strong>Containerisation</strong> : Docker, Docker Compose</li>
+                        <li><strong>Serveur Web</strong> : NGINX</li>
+                        <li><strong>Backend</strong> : PHP (opérations CRUD)</li>
+                        <li><strong>Base de données</strong> : MariaDB</li>
+                        <li><strong>Supervision</strong> : Prometheus, Grafana</li>
+                        <li><strong>Versioning</strong> : Git</li>
+                        <li><strong>Automatisation</strong> : Terraform, Ansible, Bash scripts</li>
+                        <li><strong>Sécurité</strong> : SSL/TLS (Let's Encrypt), Groupes de sécurité Azure</li>
+                    </ul>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Étapes de Réalisation</h3>
+                    <p><strong>1. Choix de la plateforme Azure</strong></p>
+                    <ul>
+                        <li>Fiabilité et large gamme de services</li>
+                        <li>Options de déploiement flexibles</li>
+                        <li>Intégration fluide avec les outils DevOps</li>
+                        <li>Scalabilité et sécurité intégrée</li>
+                    </ul>
+
+                    <p><strong>2. Création de la machine virtuelle</strong></p>
+                    <ul>
+                        <li>VM Ubuntu sur Azure (instance B1S)</li>
+                        <li>Configuration du stockage avec disque SSD</li>
+                        <li>Mise en place des groupes de sécurité</li>
+                        <li>Accès SSH sécurisé</li>
+                    </ul>
+
+                    <p><strong>3. Déploiement de Docker</strong></p>
+                    <ul>
+                        <li>Installation et configuration de Docker</li>
+                        <li>Démarrage automatique avec la VM</li>
+                        <li>Gestion des permissions utilisateur</li>
+                    </ul>
+
+                    <p><strong>4. Configuration des containers</strong></p>
+                    <ul>
+                        <li>Container NGINX avec fichier de configuration personnalisé</li>
+                        <li>Container MariaDB avec initialisation SQL</li>
+                        <li>Container Git pour le versionnage</li>
+                        <li>Container Prometheus avec configuration de monitoring</li>
+                    </ul>
+
+                    <p><strong>5. Développement de l'application web</strong></p>
+                    <ul>
+                        <li>Application PHP avec connexion à MariaDB</li>
+                        <li>Fonctionnalités CRUD complètes (Create, Read, Update, Delete)</li>
+                        <li>Protection contre les injections SQL</li>
+                        <li>Interface utilisateur fonctionnelle</li>
+                    </ul>
+
+                    <p><strong>6. Supervision des services</strong></p>
+                    <ul>
+                        <li>Configuration de Prometheus pour collecter les métriques</li>
+                        <li>Mise en place d'alertes automatiques</li>
+                        <li>Intégration avec Grafana pour visualisation</li>
+                        <li>Monitoring en temps réel des performances</li>
+                    </ul>
+
+                    <p><strong>7. Sécurisation de l'infrastructure</strong></p>
+                    <ul>
+                        <li>Groupes de sécurité Azure avec règles strictes</li>
+                        <li>Certificats SSL avec Let's Encrypt</li>
+                        <li>Chiffrement des communications HTTPS</li>
+                        <li>Gestion sécurisée des mots de passe</li>
+                        <li>Restriction d'accès SSH par IP</li>
+                    </ul>
+
+                    <p><strong>8. Automatisation du déploiement</strong></p>
+                    <ul>
+                        <li>Infrastructure as Code avec Terraform</li>
+                        <li>Playbooks Ansible pour configuration automatique</li>
+                        <li>Scripts Bash pour déploiement</li>
+                        <li>Versionnage de l'infrastructure</li>
+                    </ul>
+
+                    <p><strong>9. Tests et validation</strong></p>
+                    <ul>
+                        <li>Tests unitaires des fonctions PHP</li>
+                        <li>Tests d'intégration des modules</li>
+                        <li>Tests fonctionnels des scénarios utilisateur</li>
+                        <li>Tests de performance avec Apache JMeter</li>
                     </ul>
                 </div>
 
                 <div class="tool-section">
                     <h3>Compétences Développées</h3>
                     <ul>
-                        <li>Architecture cloud et services Azure</li>
+                        <li>Architecture cloud et services Azure (IaaS)</li>
                         <li>Containerisation et orchestration Docker</li>
-                        <li>Automatisation avec Ansible</li>
+                        <li>Développement d'applications web (PHP, SQL)</li>
+                        <li>Automatisation infrastructure (Terraform, Ansible)</li>
+                        <li>Monitoring et supervision (Prometheus, Grafana)</li>
                         <li>Sécurisation d'infrastructures cloud</li>
-                        <li>Monitoring et supervision avec Prometheus</li>
-                        <li>Scripting et automatisation avancée</li>
+                        <li>Scripting avancé (Bash, Python)</li>
+                        <li>Pratiques DevOps et CI/CD</li>
+                        <li>Gestion de projet et méthodologie itérative</li>
+                    </ul>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Résultats et Accomplissements</h3>
+                    <ul>
+                        <li>Infrastructure cloud entièrement fonctionnelle et automatisée</li>
+                        <li>Application web sécurisée avec CRUD complet</li>
+                        <li>Déploiement reproductible et versionné</li>
+                        <li>Monitoring en temps réel avec alertes</li>
+                        <li>Sécurité renforcée (SSL, groupes de sécurité, pare-feu)</li>
+                        <li>Architecture modulaire et scalable</li>
+                        <li>Documentation complète du projet (35 pages)</li>
+                        <li>Validation du titre professionnel DevOps System Administrator</li>
+                    </ul>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Défis Rencontrés et Solutions</h3>
+                    <ul>
+                        <li><strong>Compatibilité versions</strong> : Ajustement des versions MariaDB et PHP pour assurer la compatibilité</li>
+                        <li><strong>Permissions Azure</strong> : Affinage des scripts pour gérer les permissions d'accès de manière granulaire</li>
+                        <li><strong>Automatisation complexe</strong> : Utilisation de Terraform et Ansible pour simplifier le processus</li>
+                        <li><strong>Sécurité réseau</strong> : Configuration minutieuse des groupes de sécurité et règles de pare-feu</li>
+                    </ul>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Perspectives d'Amélioration</h3>
+                    <ul>
+                        <li>Gestion avancée des utilisateurs et authentification</li>
+                        <li>Pipeline CI/CD complet pour déploiement automatisé</li>
+                        <li>Système de sauvegarde automatique des données</li>
+                        <li>Utilisation de services cloud managés (Azure Database, Azure App Service)</li>
+                        <li>Mise en place de Kubernetes pour orchestration avancée</li>
+                        <li>Intégration de tests automatisés dans le pipeline</li>
                     </ul>
                 </div>
             </div>
